@@ -1,3 +1,4 @@
+-- Active: 1656725077704@@localhost@3306@hr
 DROP DATABASE IF EXISTS StoreManager;
 
 CREATE DATABASE StoreManager;

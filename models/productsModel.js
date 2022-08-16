@@ -2,7 +2,7 @@ const db = require('../database');
 
 async function getAllProducts() {
   const [products] = await db.query('SELECT * FROM StoreManager.products');
-  return products;
+  return products || [];
 }
 
 async function getProductById(id) {
@@ -10,7 +10,7 @@ async function getProductById(id) {
     'SELECT * FROM StoreManager.products WHERE id = ?',
     [Number(id)],
   );
-  return product;
+  return product || [];
 }
 
 module.exports = { getAllProducts, getProductById };

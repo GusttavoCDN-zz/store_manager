@@ -10,7 +10,7 @@ async function getProductById(id) {
     'SELECT * FROM StoreManager.products WHERE id = ?',
     [Number(id)],
   );
-  return product || [];
+  return product;
 }
 
 module.exports = { getAllProducts, getProductById };

@@ -16,7 +16,7 @@ describe("Teste da camada model, rota /products GET", () => {
   it("Quando o DB estiver vazio, deve retornar um array vazio", async () => {
     sinon.stub(db, "query").resolves([]);
     const products = await productsModel.getAllProducts();
-    expect(products.length).to.be.equal(0);
+    expect(products.length).to.be.equals(0);
   });
 });
 
@@ -39,7 +39,7 @@ describe("Teste da camada model, rota /products/:id GET", () => {
 
     it("Deve retornar um array vazio", async () => {
       const product = await productsModel.getProductById(ID);
-      expect(product.length).to.be.equals(0);
+      expect(product).to.be.equals(undefined);
     });
   });
 });

@@ -1,10 +1,12 @@
 const express = require('express');
 const errorMiddleware = require('./middlewares/errorMiddleware');
 const productsRouter = require('./routes/productsRouter');
+const salesRouter = require('./routes/salesRouter');
 
 const app = express();
 app.use(express.json());
 app.use('/products', productsRouter);
+app.use('/sales', salesRouter);
 
 app.use(errorMiddleware);
 

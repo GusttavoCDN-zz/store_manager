@@ -1,7 +1,7 @@
 const createError = require('./createError');
 
 function validateName(name) {
-  if (!name) return createError('badRequest', 'Name is required');
+  if (!name) return createError('badRequest', '"name" is required');
   if (name.length < 5) {
     return createError(
       'unprocessableEntity',

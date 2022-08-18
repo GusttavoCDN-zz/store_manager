@@ -1,3 +1,4 @@
+const httpStatus = require('../helpers/httpStatus');
 const productsService = require('../services/productsService');
 
 async function getAllProducts(_request, response) {
@@ -13,4 +14,12 @@ async function getProductById(request, response, next) {
   response.status(200).json(product);
 }
 
-module.exports = { getAllProducts, getProductById };
+async function addProduct(request, response, next) {
+  const { name } = request.body;
+  const product = await productsService.addProduct(name);
+
+  if (product.error) return next(product.error);
+  response.status(httpStatus.created).json(product);
+}
+
+module.exports = { getAllProducts, getProductById, addProduct };

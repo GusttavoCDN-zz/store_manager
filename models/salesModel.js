@@ -52,10 +52,29 @@ async function getSaleById(id) {
   return sale;
 }
 
+async function deleteSale(saleId) {
+  const query = `
+    DELETE FROM StoreManager.sales
+    WHERE id = ?;
+  `;
+  const [{ affectedRows }] = await db.query(query, [saleId]);
+  return affectedRows;
+}
+
+async function deleteSaleProducts(saleId) {
+  const query = `
+    DELETE FROM StoreManager.sales_products
+    WHERE sale_id = ?;
+  `;
+  await db.query(query, [saleId]);
+}
+
 module.exports = {
   createSale,
   getProducts,
   createSaleAndProduct,
   getAllSales,
   getSaleById,
+  deleteSale,
+  deleteSaleProducts,
 };

@@ -25,4 +25,13 @@ async function getSaleById(req, res, next) {
   return res.status(httpStatus.ok).json(sale);
 }
 
-module.exports = { addSales, getSaleById, getAllSales };
+async function deleteSales(req, res, next) {
+  const { id } = req.params;
+  const sale = await salesService.deleteSales(id);
+  console.log(sale);
+  if (sale.error) return next(sale.error);
+
+  return res.status(httpStatus.noContent).end();
+}
+
+module.exports = { addSales, getSaleById, getAllSales, deleteSales };

@@ -1,0 +1,16 @@
+[
+  {
+    "_id": "637f03f9-8969-406f-83aa-ff24ea5d102c",
+    "colId": "history",
+    "containerId": "",
+    "name": "localhost:3000/sales/2",
+    "url": "localhost:3000/sales/2",
+    "method": "DELETE",
+    "sortNum": 0,
+    "created": "2022-08-20T16:04:02.539Z",
+    "modified": "2022-08-20T16:04:56.619Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  }
+]

@@ -40,4 +40,12 @@ async function getSaleById(id) {
   return saleProducts;
 }
 
-module.exports = { addSales, getSaleById, getAllSales };
+async function deleteSales(id) {
+  const sale = await salesModel.deleteSale(id);
+  if (sale === 0) return createError('notFound', 'Sale not found');
+
+  await salesModel.deleteSaleProducts(id);
+  return {};
+}
+
+module.exports = { addSales, getSaleById, getAllSales, deleteSales };

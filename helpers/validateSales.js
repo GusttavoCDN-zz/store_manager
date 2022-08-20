@@ -21,10 +21,11 @@ function verifyProductsInput(sales) {
 
 async function verifyIfProductExists(sales) {
   const products = await salesModel.getProducts();
+  const productIds = products.map(({ id }) => id);
   const salesProducts = sales.map(({ productId }) => productId);
 
   const productsNotFound = salesProducts.filter(
-    (productId) => !products.includes(productId),
+    (productId) => !productIds.includes(productId),
   );
 
   if (productsNotFound.length) {

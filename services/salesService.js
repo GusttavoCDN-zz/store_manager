@@ -1,7 +1,9 @@
+const createError = require('../helpers/createError');
 const {
   verifyProductsInput,
   verifyIfProductExists,
 } = require('../helpers/validateSales');
+
 const salesModel = require('../models/salesModel');
 
 async function addSales(sales) {
@@ -9,7 +11,6 @@ async function addSales(sales) {
   const productExistsError = await verifyIfProductExists(sales);
 
   if (productInputError.error) return productInputError;
-
   if (productExistsError.error) return productExistsError;
 
   const salesId = await salesModel.createSale();
@@ -21,4 +22,22 @@ async function addSales(sales) {
   return { data: { id: salesId, itemsSold: sales } };
 }
 
-module.exports = { addSales };
+async function getAllSales() {
+  const sales = await salesModel.getAllSales();
+  const formatedSales = sales.map((sale) => ({
+    saleId: sale.saleId,
+    date: sale.date,
+    productId: sale.product_id,
+    quantity: sale.quantity,
+  }));
+
+  return formatedSales;
+}
+
+async function getSaleById(id) {
+  const saleProducts = await salesModel.getSaleById(id);
+  if (!saleProducts.length) return createError('notFound', 'Sale not found');
+  return saleProducts;
+}
+
+module.exports = { addSales, getSaleById, getAllSales };

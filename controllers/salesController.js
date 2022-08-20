@@ -10,4 +10,19 @@ async function addSales(req, res, next) {
   return res.status(httpStatus.created).json(sale.data);
 }
 
-module.exports = { addSales };
+async function getAllSales(req, res, next) {
+  const sales = await salesService.getAllSales();
+  if (sales.error) return next(sales.error);
+  return res.status(httpStatus.ok).json(sales);
+}
+
+async function getSaleById(req, res, next) {
+  const { id } = req.params;
+  const sale = await salesService.getSaleById(id);
+
+  if (sale.error) return next(sale.error);
+
+  return res.status(httpStatus.ok).json(sale);
+}
+
+module.exports = { addSales, getSaleById, getAllSales };

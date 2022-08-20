@@ -21,4 +21,13 @@ async function addProduct(name) {
   return product;
 }
 
-module.exports = { getAllProducts, getProductById, addProduct };
+async function updateProduct(id, name) {
+  const { error } = validateName(name);
+  if (error) return { error };
+
+  const affectedRows = await productsModel.updateProduct(id, name);
+  if (affectedRows === 0) return createError('notFound', 'Product not found');
+  return { id, name };
+}
+
+module.exports = { getAllProducts, getProductById, addProduct, updateProduct };

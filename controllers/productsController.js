@@ -22,4 +22,13 @@ async function addProduct(request, response, next) {
   response.status(httpStatus.created).json(product);
 }
 
-module.exports = { getAllProducts, getProductById, addProduct };
+async function updateProduct(request, response, next) {
+  const { id } = request.params;
+  const { name } = request.body;
+  const product = await productsService.updateProduct(id, name);
+
+  if (product.error) return next(product.error);
+  response.status(httpStatus.ok).json(product);
+}
+
+module.exports = { getAllProducts, getProductById, addProduct, updateProduct };

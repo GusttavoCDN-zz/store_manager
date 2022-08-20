@@ -1,24 +1,27 @@
 const db = require('../database');
 
 async function getAllProducts() {
-  const [products] = await db.query('SELECT * FROM StoreManager.products');
+  const query = 'SELECT * FROM StoreManager.products';
+  const [products] = await db.query(query);
   return products || [];
 }
 
 async function getProductById(id) {
-  const [[product]] = await db.query(
-    'SELECT * FROM StoreManager.products WHERE id = ?',
-    [Number(id)],
-  );
+  const query = 'SELECT * FROM StoreManager.products WHERE id = ?';
+  const [[product]] = await db.query(query, [Number(id)]);
   return product;
 }
 
 async function addProduct(name) {
-  const [{ insertId: id }] = await db.query(
-    'INSERT INTO StoreManager.products (name) VALUES (?)',
-    [name],
-  );
+  const query = 'INSERT INTO StoreManager.products (name) VALUES (?)';
+  const [{ insertId: id }] = await db.query(query, [name]);
   return { id, name };
 }
 
-module.exports = { getAllProducts, getProductById, addProduct };
+async function updateProduct(id, name) {
+  const query = 'UPDATE StoreManager.products SET name = ? WHERE id = ?';
+  const [{ affectedRows }] = await db.query(query, [name, Number(id)]);
+  return affectedRows;
+}
+
+module.exports = { getAllProducts, getProductById, addProduct, updateProduct };

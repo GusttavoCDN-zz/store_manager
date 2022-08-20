@@ -31,4 +31,18 @@ async function updateProduct(request, response, next) {
   response.status(httpStatus.ok).json(product);
 }
 
-module.exports = { getAllProducts, getProductById, addProduct, updateProduct };
+async function deleteProduct(request, response, next) {
+  const { id } = request.params;
+  const product = await productsService.deleteProduct(id);
+
+  if (product.error) return next(product.error);
+  response.status(httpStatus.noContent).end();
+}
+
+module.exports = {
+  getAllProducts,
+  getProductById,
+  addProduct,
+  updateProduct,
+  deleteProduct,
+};

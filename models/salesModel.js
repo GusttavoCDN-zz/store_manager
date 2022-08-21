@@ -23,8 +23,6 @@ async function createSaleAndProduct(saleId, productId, quantity) {
   `;
 
   await db.query(query, [saleId, productId, quantity]);
-
-  return true;
 }
 
 async function getAllSales() {
@@ -69,6 +67,14 @@ async function deleteSaleProducts(saleId) {
   await db.query(query, [saleId]);
 }
 
+async function updateSaleProducts(saleId, productID, quantity) {
+  const query = `
+    UPDATE StoreManager.sales_products SET quantity = ?
+    WHERE sale_id = ? AND  product_id = ?`;
+
+  await db.query(query, [quantity, saleId, productID]);
+}
+
 module.exports = {
   createSale,
   getProducts,
@@ -77,4 +83,5 @@ module.exports = {
   getSaleById,
   deleteSale,
   deleteSaleProducts,
+  updateSaleProducts,
 };

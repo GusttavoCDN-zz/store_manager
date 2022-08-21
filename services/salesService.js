@@ -40,7 +40,7 @@ async function getSaleById(id) {
   return saleProducts;
 }
 
-async function deleteSales(id) {
+async function deleteSale(id) {
   const sale = await salesModel.deleteSale(id);
   if (sale === 0) return createError('notFound', 'Sale not found');
 
@@ -48,4 +48,22 @@ async function deleteSales(id) {
   return {};
 }
 
-module.exports = { addSales, getSaleById, getAllSales, deleteSales };
+async function updateSale(saleId, saleProducts) {
+  const sale = await salesModel.getSaleById(saleId);
+
+  const productInputError = await verifyProductsInput(saleProducts);
+  const productExistsError = await verifyIfProductExists(saleProducts);
+  if (productInputError.error) return productInputError;
+  if (productExistsError.error) return productExistsError;
+
+  if (sale.length === 0) return createError('notFound', 'Sale not found');
+
+  await Promise.all(
+    saleProducts.map(({ productId, quantity }) =>
+      salesModel.updateSaleProducts(saleId, productId, quantity)),
+  );
+
+  return { saleId, itemsUpdated: saleProducts };
+}
+
+module.exports = { addSales, getSaleById, getAllSales, deleteSale, updateSale };

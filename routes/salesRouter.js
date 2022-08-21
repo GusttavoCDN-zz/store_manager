@@ -5,7 +5,8 @@ const salesController = require('../controllers/salesController');
 const router = Router();
 
 router.get('/:id', rescue(salesController.getSaleById));
-router.delete('/:id', rescue(salesController.deleteSales));
+router.put('/:id', rescue(salesController.updateSale));
+router.delete('/:id', rescue(salesController.deleteSale));
 router.get('/', rescue(salesController.getAllSales));
 router.post('/', rescue(salesController.addSales));
 

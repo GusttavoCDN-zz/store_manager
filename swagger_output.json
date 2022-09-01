@@ -1,0 +1,148 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "2.0.0",
+    "title": "Store Manager API",
+    "description": "Essa API foi desenvlvida como parte do curriculo de backend da Trybe"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3002",
+      "description": "Rota principal da aplicaçãos"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Produtos",
+      "description": "Rotas associadas a produtos"
+    }
+  ],
+  "paths": {
+    "/products/{id}": {
+      "get": {
+        "summary": "Buscar um produto pelo ID",
+        "description": "Essa rota retorna um produto pelo ID",
+        "tags": ["Produtos"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": 1,
+            "description": "ID do produto a ser buscado"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retorno quando a busca é bem sucedida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductSchema"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "delete": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/products/": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "post": {
+        "summary": "Criar um produto",
+        "description": "Cria um novo produto",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Produto 1"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Retorno quando o produto é criado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Retorno quando ocorre um erro ao criar o produto"
+          }
+        }
+      }
+    },
+    "/sales/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "put": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "delete": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/sales/": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "post": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ProductSchema": {
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
